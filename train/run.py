@@ -7,8 +7,6 @@ import argparse
 from importlib import import_module
 
 import numpy as np
-from utils.utils import build_dataset, DatasetIterater
-from utils.ngram_utils import build_ngram_dataset, NGramDatasetIterater
 from scripts import init_network, train
 
 
@@ -41,13 +39,16 @@ def main():
     # model name
     model_name = args.model
     if model_name == "FastText":
-        build_dataset = build_ngram_dataset
-        DatasetIterater = NGramDatasetIterater
+        from utils.ngram_utils import build_ngram_dataset as build_dataset
+        from utils.ngram_utils import NGramDatasetIterater as DatasetIterater
+    else: 
+        from utils.utils import build_dataset, DatasetIterater
     
     # module 
     module = import_module("models")
     Config = getattr(module, model_name + "Config")
     Model = getattr(module, model_name)
+    print(Model)
 
     # config
     config = Config(args.dataset, embedding)
@@ -58,13 +59,13 @@ def main():
     train_iter = DatasetIterater(train_data, config)
     dev_iter = DatasetIterater(dev_data, config)
     test_iter = DatasetIterater(test_data, config)
-    print(next(train_iter))
     
     # model
     model = Model(config).to(config.device)
         
     # network initialization
-    init_network(model=model)
+    if model_name != "Transformer":
+        init_network(model=model)
 
     # train
     train(config, model, train_iter, dev_iter, test_iter)

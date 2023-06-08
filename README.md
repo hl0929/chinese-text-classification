@@ -1,4 +1,8 @@
 
+# 项目介绍
+
+一行命令完成中文文本分类模型训练、**部署**。
+
 # 项目环境
 
 * 虚拟环境
@@ -38,10 +42,21 @@ python -m unittest -v tests.test_text_cnn
 [THUCNews](http://thuctc.thunlp.org/)
 
 
-# 相关实现
+# 模型实现
+
+[text_classification_AI100](https://github.com/lc222/text_classification_AI100)
 
 [Chinese-Text-Classification-Pytorch](https://github.com/649453932/Chinese-Text-Classification-Pytorch)
 
+[ChineseTextClassifier](https://github.com/ami66/ChineseTextClassifier)
+
+[Keras-TextClassification](https://github.com/yongzhuo/Keras-TextClassification)
+
+[bert-Chinese-classification-task](https://github.com/NLPScott/bert-Chinese-classification-task)
+
+[text-classification](https://github.com/wavewangyue/text-classification)
+
+[text_classification](https://github.com/brightmart/text_classification)
 
 
 # TensorBoard 可视化

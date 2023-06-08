@@ -25,7 +25,11 @@ class FastTextConfig(Config):
 
 
 class FastText(nn.Module):
-
+    """ 
+    Bag of Tricks for Efficient Text Classification
+    
+    https://arxiv.org/abs/1607.01759
+    """
     def __init__(self, config):
         super().__init__()
         if config.embedding_pretrained is not None:

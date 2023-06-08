@@ -6,7 +6,7 @@ import torch
 import pickle
 from typing import Dict, List, Tuple
 from tqdm import tqdm
-from utils.utils import DatasetIterater, build_vocab, build_dataset, tokenizer, read_txt, PAD, UNK
+from utils.utils import DatasetIterater, build_vocab, tokenizer, read_txt, PAD, UNK
 
 
 def bigram_hash(sequence, t, buckets):
