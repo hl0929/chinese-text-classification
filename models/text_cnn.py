@@ -4,50 +4,25 @@ from typing import Union
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
+from models.config import Config
 
 
-class TextCNNConfig:
+class TextCNNConfig(Config):
 
     def __init__(self, dataset: str, embedding: Union[str, None]) -> None:
+        super().__init__(dataset, embedding)
         # model name
         self.model_name = "TextCNN"
 
-        # data
-        self.data_dir = "data/datasets"
-        self.train_path = os.path.join(self.data_dir, dataset, "train.txt")
-        self.dev_path = os.path.join(self.data_dir, dataset, "dev.txt")
-        self.test_path = os.path.join(self.data_dir, dataset, "test.txt")
-        self.class_path = os.path.join(self.data_dir, dataset, "class.txt")
-        self.vocab_path = os.path.join(self.data_dir, dataset, "vocab/vocab.pkl")
         # weight
         self.save_path = os.path.join("data/weights", self.model_name + ".ckpt")
         # log
         self.log_path = os.path.join("data/log/", self.model_name)
-        if not embedding or embedding == "random":
-            self.embedding_pretrained = None
-        else:
-            self.embedding_path = os.path.join(self.data_dir, dataset, "embeddings", embedding)
-            self.embedding_pretrained = torch.tensor(
-                np.load(self.embedding_path)["embeddings"].astype("float32")
-            )
-        self.class_list = [x.strip() for x in open(self.class_path, encoding="utf-8").readlines()]
 
-        # device
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-        # parameters
-        self.num_embeddings = 0
-        self.embedding_dim = 300
-        self.pad_size = 32
-        self.batch_size = 128
-        self.num_epochs = 20
-        self.num_filters = 256
-        self.dropout = 0.5
-        self.learning_rate = 1e-3
-        self.filter_sizes = [2, 3, 4]
-        self.num_classes = len(self.class_list)
-        self.require_improvement = 1000
+        # cnn
+        self.filter_sizes = [2, 3, 4]  # convolution kernel size 
+        self.num_filters = 256         # channels
+        
 
 
 class TextCNN(nn.Module):
@@ -62,7 +37,8 @@ class TextCNN(nn.Module):
         if config.embedding_pretrained is not None:
             self.embedding = nn.Embedding.from_pretrained(config.embedding_pretrained, freeze=False)
         else:
-            self.embedding = nn.Embedding(config.num_embeddings, config.embedding_dim, padding_idx=config.num_embeddings - 1)
+            self.embedding = nn.Embedding(config.n_vocab, config.embedding_dim, padding_idx=config.n_vocab - 1)
+        
         self.convs = nn.ModuleList(
             [nn.Conv2d(1, config.num_filters, (k, config.embedding_dim)) for k in config.filter_sizes]
         )

@@ -13,14 +13,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-# 原始数据
 
-[THUCNews](http://thuctc.thunlp.org/)
+# 训练脚本
 
-# 相关实现
-
-[Chinese-Text-Classification-Pytorch](https://github.com/649453932/Chinese-Text-Classification-Pytorch)
-
+```bash
+sh ./train/run.sh 
+```
 
 # 单元测试
 
@@ -34,9 +32,23 @@ nosetests -v tests/*
 python -m unittest -v tests.test_text_cnn
 ```
 
-# TensorBoard
+
+# 原始数据
+
+[THUCNews](http://thuctc.thunlp.org/)
+
+
+# 相关实现
+
+[Chinese-Text-Classification-Pytorch](https://github.com/649453932/Chinese-Text-Classification-Pytorch)
+
+
+
+# TensorBoard 可视化
+
+执行如下命令：
 
 ```bash
- tensorboard --logdir=./
+ tensorboard --logdir=./logdir  # ./logdir 日志文件所在目录
  ```
 

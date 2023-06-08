@@ -1,13 +1,18 @@
 import sys
 sys.path.append(".")
 
+import os
 import torch
 import argparse
+from importlib import import_module
 
 import numpy as np
 from utils.utils import build_dataset, DatasetIterater
+from utils.ngram_utils import build_ngram_dataset, NGramDatasetIterater
 from scripts import init_network, train
-from models import TextCNN, TextCNNConfig
+
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 
 def set_seed():
@@ -32,23 +37,32 @@ def main():
     if args.embedding == "random":
         embedding = "random"
     print(embedding)
-    
-    # config
+
+    # model name
     model_name = args.model
-    if model_name == "TextCNN":
-        config = TextCNNConfig(args.dataset, embedding)
+    if model_name == "FastText":
+        build_dataset = build_ngram_dataset
+        DatasetIterater = NGramDatasetIterater
+    
+    # module 
+    module = import_module("models")
+    Config = getattr(module, model_name + "Config")
+    Model = getattr(module, model_name)
+
+    # config
+    config = Config(args.dataset, embedding)
 
     # dataset
     vocab, train_data, dev_data, test_data = build_dataset(config, args.token_level)
-    config.num_embeddings = len(vocab)
+    config.n_vocab = len(vocab)
     train_iter = DatasetIterater(train_data, config)
     dev_iter = DatasetIterater(dev_data, config)
     test_iter = DatasetIterater(test_data, config)
+    print(next(train_iter))
     
     # model
-    if model_name == "TextCNN":
-        model = TextCNN(config).to(config.device)
-
+    model = Model(config).to(config.device)
+        
     # network initialization
     init_network(model=model)
 

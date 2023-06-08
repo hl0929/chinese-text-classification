@@ -3,7 +3,7 @@ sys.path.append(".")
 
 import torch
 import unittest
-from models import TextCNNConfig, TextCNN
+from models import DPCNNConfig, DPCNN
 
 
 class TestTextCNN(unittest.TestCase):
@@ -12,9 +12,9 @@ class TestTextCNN(unittest.TestCase):
         # setup
         embedding = "random"
         dataset = "THUCNews"
-        config = TextCNNConfig(embedding=embedding, dataset=dataset)
+        config = DPCNNConfig(embedding=embedding, dataset=dataset)
         config.n_vocab = 10  # vocab size
-        model = TextCNN(config=config)
+        model = DPCNN(config=config)
 
         # action
         inputs = torch.tensor([[1, 2, 3, 4], [5, 6, 7, 8], [5, 6, 7, 8]])
@@ -28,8 +28,8 @@ class TestTextCNN(unittest.TestCase):
         # setup
         embedding = "embedding_SougouNews.npz"
         dataset = "THUCNews"
-        config = TextCNNConfig(embedding=embedding, dataset=dataset)
-        model = TextCNN(config=config)
+        config = DPCNNConfig(embedding=embedding, dataset=dataset)
+        model = DPCNN(config=config)
 
         # action
         inputs = torch.tensor([[1, 2, 3, 4], [5, 6, 7, 8], [5, 6, 7, 8]])
