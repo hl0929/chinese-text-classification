@@ -52,7 +52,9 @@ class TextCNN(nn.Module):
         # width = 1, so squeeze(3)
         x = x.squeeze(3)
         # x: [batch_size, out_channels, seq_len - height + 1]
-        x = F.max_pool1d(x, x.size(2))
+        # x = F.max_pool1d(x, x.size(2))
+        # to onnx
+        x = F.max_pool1d(x, int(x.size(2)))
         # x: [batch_size, out_channels, out_pool]
         # out_pool = 1, so squeeze(2)
         x = x.squeeze(2)

@@ -4,3 +4,7 @@ jieba==0.42.1
 tqdm==4.65.0
 tensorboardX==2.6
 scikit-learn==1.2.2
+onnxruntime==1.14.1
+fastapi==0.95.1
+pydantic==1.10.7
+uvicorn==0.22.0

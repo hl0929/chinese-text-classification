@@ -64,7 +64,6 @@ class DPCNN(nn.Module):
         out = self.relu(out)
         out = self.conv(out)
         # out: [batch_size, num_filters, seq_len-3+1, 1]
-        print("out: ", out.shape)
         while out.size()[2] >= 2:
             out = self._block(out)
         out = out.squeeze()

@@ -3,6 +3,24 @@
 
 一行命令完成中文文本分类模型训练、**部署**。
 
+* 一键启动
+```bash
+sh launch.sh
+```
+
+* 体验服务
+```bash
+curl --location 'http://localhost:8000/cls/' --header 'Content-Type: application/json' --data '{"query": "姚明是谁"}'
+```
+
+* 响应结果
+```bash
+{
+	"predict": "sports",
+	"elapsed": "0.0007787439972162247"
+}
+```
+
 # 项目环境
 
 * 虚拟环境
@@ -18,10 +36,21 @@ pip install -r requirements.txt
 ```
 
 
-# 训练脚本
+# 执行脚本
 
+* 训练
 ```bash
 sh ./train/run.sh 
+```
+
+* 部署
+```bash
+sh service/deploy.sh
+```
+
+* 服务请求
+```bash
+curl --location 'http://localhost:8000/cls/' --header 'Content-Type: application/json' --data '{"query": "姚明是谁"}'
 ```
 
 # 单元测试
