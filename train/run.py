@@ -10,7 +10,7 @@ import numpy as np
 from scripts import init_network, train
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
 def set_seed():

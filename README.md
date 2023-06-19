@@ -5,12 +5,12 @@
 
 * 一键启动
 ```bash
-bash launch.sh
+nohup bash launch.sh > train.log 2>&1 &
 ```
 
 * 体验服务
 ```bash
-curl --location 'http://localhost:8000/cls/' --header 'Content-Type: application/json' --data '{"query": "姚明是谁"}'
+curl --location 'http://localhost:8001/cls/' --header 'Content-Type: application/json' --data '{"query": "姚明是谁"}'
 ```
 
 * 响应结果
