@@ -3,7 +3,7 @@ from typing import Dict
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from service.inference import ModelSerivce
+from inference.inference import ModelSerivce
 
 
 app = FastAPI()

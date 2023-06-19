@@ -5,7 +5,7 @@
 
 * 一键启动
 ```bash
-sh launch.sh
+bash launch.sh
 ```
 
 * 体验服务
@@ -25,7 +25,7 @@ curl --location 'http://localhost:8000/cls/' --header 'Content-Type: application
 
 * 虚拟环境
 ```bash
-python -m venv venv
+python3 -m venv venv
 
 source venv/bin/activate
 ```
@@ -40,15 +40,20 @@ pip install -r requirements.txt
 
 * 训练
 ```bash
-sh ./train/run.sh 
+bash ./train/run.sh 
+```
+
+* 推理
+```bash
+bash ./inference/transform.sh
 ```
 
 * 部署
 ```bash
-sh service/deploy.sh
+bash ./service/deploy.sh
 ```
 
-* 服务请求
+* 请求
 ```bash
 curl --location 'http://localhost:8000/cls/' --header 'Content-Type: application/json' --data '{"query": "姚明是谁"}'
 ```
